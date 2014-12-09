@@ -11,9 +11,9 @@ import ConfigParser
 import random
 import smtplib
 from email.mime.text import MIMEText
-
+import json
 import requests
-from huzhifeng import dumpObj, hasKeys
+#from huzhifeng import dumpObj, hasKeys
 
 # Global variables
 RET_OK = 0
@@ -21,6 +21,17 @@ RET_ERR = -1
 MAX_TRIES = 3
 MAX_DAYS = 20
 stations = []
+def hasKeys(obj,ks):
+  for k in ks:
+    if not obj.get(k):return False
+  return True
+def obj2string(obj):
+  print obj
+  return "".join(obj).encode("gbk")
+def dumpObj(obj):
+   f = open("Storage.dat","a+")
+   f.write(obj2string(obj)+"\n")
+   f.close() 
 seatTypeCodes = [
     ('1', u'硬座'),  # 硬座/无座
     ('3', u'硬卧'),

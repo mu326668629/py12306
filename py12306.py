@@ -370,16 +370,15 @@ class MyOrder(object):
                 print('RequestException(%s): e=%s' % (url, e))
             except:
                 print('Unknown exception(%s)' % (url))
-
-            if r.status_code != 200:
-                print('Request %s failed %d times, status_code=%d' % (
+            else:
+                if r.status_code != 200:
+                    print('Request %s failed %d times, status_code=%d' % (
                     url,
                     tries,
                     r.status_code))
-            else:
-                return r
-        else:
-            return None
+                else:
+                    return r
+        return None
 
     def getCaptcha(self, url, module, rand):
         rand_url = 'https://kyfw.12306.cn/otn/passcodeNew/getPassCodeNew.do?module=%s&rand=%s' % (module, rand)
@@ -696,7 +695,7 @@ class MyOrder(object):
         return RET_OK
 
     def queryTickets(self):
-        url = 'https://kyfw.12306.cn/otn/leftTicket/query?'
+        url = 'https://kyfw.12306.cn/otn/leftTicket/queryT?'
         referer = 'https://kyfw.12306.cn/otn/leftTicket/init'
         self.session.headers.update({'Referer': referer})
         parameters = [
